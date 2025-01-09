@@ -5,11 +5,11 @@ export function UserInputGroup({ stateValue, setstateValue }) {
     <section id="user-input">
       <div className="input-group">
         <UserInput
-          value={stateValue.initial}
+          value={stateValue.initialInvestment}
           setValue={(e) =>
             setstateValue((prev) => {
               let newValue = { ...prev };
-              newValue.initial = e;
+              newValue.initialInvestment = parseInt(e);
               return newValue;
             })
           }
@@ -17,11 +17,11 @@ export function UserInputGroup({ stateValue, setstateValue }) {
           Initial Investment
         </UserInput>
         <UserInput
-          value={stateValue.annual}
+          value={stateValue.annualInvestment}
           setValue={(e) =>
             setstateValue((prev) => {
               let newValue = { ...prev };
-              newValue.annual = e;
+              newValue.annualInvestment = parseInt(e);
               return newValue;
             })
           }
@@ -31,11 +31,11 @@ export function UserInputGroup({ stateValue, setstateValue }) {
       </div>
       <div className="input-group">
         <UserInput
-          value={stateValue.expected}
+          value={stateValue.expectedReturn}
           setValue={(e) =>
             setstateValue((prev) => {
               let newValue = { ...prev };
-              newValue.expected = e;
+              newValue.expectedReturn = parseInt(e);
               return newValue;
             })
           }
@@ -47,7 +47,7 @@ export function UserInputGroup({ stateValue, setstateValue }) {
           setValue={(e) =>
             setstateValue((prev) => {
               let newValue = { ...prev };
-              newValue.duration = e;
+              newValue.duration = parseInt(e);
               return newValue;
             })
           }
