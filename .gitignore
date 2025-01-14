@@ -1,0 +1,8 @@
+node_modules
+
+/pnpm-lock.yaml
+.idea
+/**/package-lock.json
+/package-lock.json
+**/out
+
