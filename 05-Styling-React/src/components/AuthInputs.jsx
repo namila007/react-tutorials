@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { styled } from "styled-components";
+// import { styled } from "styled-components";
 import CustomInput from "./CustomInput.jsx";
+import { Button } from "./Button.jsx";
 
-const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-`;
+// const Div = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.5rem;
+//   margin-bottom: 1.5rem;
+// `;
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -30,8 +31,11 @@ export default function AuthInputs() {
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
-    <div id="auth-inputs">
-      <Div>
+    <div
+      id="auth-inputs"
+      className="w-full max-w-sm p-8 rounded shadow-md bg-gradient-to-b from-stone-800 to-stone-900 mx-auto"
+    >
+      <div className="flex flex-col gap-3 m-2">
         <CustomInput
           invalid={emailNotValid}
           label="Email"
@@ -69,14 +73,12 @@ export default function AuthInputs() {
         {/*    }*/}
         {/*  />*/}
         {/*</p>*/}
-      </Div>
-      <div className="actions">
-        <button type="button" className="text-button">
+      </div>
+      <div className="flex justify-end gap-3">
+        <Button type="button" className="text-amber-400 hover:text-amber-500">
           Create a new account
-        </button>
-        <button className="button" onClick={handleLogin}>
-          Sign In
-        </button>
+        </Button>
+        <Button onClick={handleLogin}>Sign In</Button>
       </div>
     </div>
   );
