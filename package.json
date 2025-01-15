@@ -8,6 +8,7 @@
     "react-essentials-practice": "file:04-Essentials-Practice",
     "react-essentials-start": "file:01-React-Essentials",
     "react-essentials-start-2": "file:02-Essentials-DeepDown",
+    "refs": "file:06-Ref-Portals",
     "styling": "file:05-Styling-React"
   }
 }
