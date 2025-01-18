@@ -1,56 +1,51 @@
 import { useRef, useState } from "react";
-import { ResultModel } from "./ResultModel.jsx";
+import ResultModel from "./ResultModel.jsx";
 
 export function TimerChallenge({ title, targetTime }) {
   const [timerRunning, setTimerRunning] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
-  const [startTime, setStartTime] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(targetTime * 1000);
   const [won, setWon] = useState(false);
-  let counterRef = useRef(null);
+  const counterRef = useRef(null);
+  const timerRef = useRef(null);
+  const dialogRef = useRef(null);
+
+  function clean() {
+    clearTimeout(timerRef.current);
+    clearTimeout(counterRef.current);
+    setTimerRunning(false);
+  }
 
   function startTimer() {
-    if (timerRunning && !timerExpired) {
-      console.log("dd", counterRef);
-      clearTimeout(counterRef.current);
-      setTimerRunning(false);
-      setTimerExpired(false);
-      setStartTime((p) => Date.now() - p);
+    if (timerRunning) {
+      clean();
       setWon(true);
+      dialogRef.current.open();
     } else {
       setWon(false);
       setTimerRunning(true);
-      setTimerExpired(false);
-      setStartTime(Date.now());
+      setRemainingTime(targetTime * 1000);
+      timerRef.current = setInterval(() => setRemainingTime((p) => p - 10), 10);
       counterRef.current = setTimeout(() => {
-        setTimerRunning(false);
-        setTimerExpired(true);
-        setWon(false);
+        clean();
+        dialogRef.current.open();
       }, targetTime * 1000);
-      console.log(counterRef);
     }
-  }
-
-  function getSeconds() {
-    return (startTime / 1000).toFixed(2);
   }
 
   return (
     <>
-      {timerExpired && <ResultModel result="lost" targetTime={targetTime} />}
-      {won && (
-        <ResultModel
-          result="won"
-          targetTime={targetTime}
-          wonTime={getSeconds()}
-        />
-      )}
+      <ResultModel
+        result={won ? "won" : "lost"}
+        targetTime={targetTime}
+        ref={dialogRef}
+        wonTime={remainingTime}
+      />
       <section className="challenge">
         <h2>{title}</h2>
-        {/*{timerExpired && <p className="challenge-expired">You Lost</p>}*/}
-        {/*{won && <p className="challenge-won">You Won {getSeconds()}s</p>}*/}
-        {/*{!timerExpired && !won && <p className="challenge-won"> _</p>}*/}
         <p className="challenge-time">
-          {targetTime} second{targetTime > 1 ? "s" : ""}
+          {!timerRunning && `${targetTime} second${targetTime > 1 ? "s" : ""}`}
+          {timerRunning &&
+            `${(remainingTime / 1000).toFixed(2)} seconds remaining`}
         </p>
         <p>
           <button onClick={startTimer}>
