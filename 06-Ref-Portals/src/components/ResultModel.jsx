@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 //deprecated, needed for react<19
 export default React.forwardRef(function ResultModel(
   { result, targetTime, wonTime },
@@ -15,7 +16,7 @@ export default React.forwardRef(function ResultModel(
   }));
   const computedRemaining = (wonTime / 1000).toFixed(2);
   const score = Math.round((1 - wonTime / (targetTime * 1000)) * 100);
-  return (
+  return createPortal(
     <dialog className="result-modal" ref={localRef}>
       <h2>
         {" "}
@@ -33,6 +34,7 @@ export default React.forwardRef(function ResultModel(
       <form method="dialog">
         <button>Close</button>
       </form>
-    </dialog>
+    </dialog>,
+    document.getElementById("modal"),
   );
 });
