@@ -7,6 +7,7 @@ export function CreateProject({ setItems, isVisible }) {
   const dateRef = useRef();
 
   function addProject() {
+    if (!validate()) return;
     setItems((p) => {
       return [
         ...p,
@@ -15,12 +16,29 @@ export function CreateProject({ setItems, isVisible }) {
           name: titleRef.current.value,
           description: descriptionRef.current.value,
           date: dateRef.current.value,
+          tasks: [],
         },
       ];
     });
     isVisible(false);
   }
 
+  function validate() {
+    if (titleRef.current.value.length === 0) {
+      //todo: add error message
+      alert("Title is required");
+      return false;
+    }
+    if (descriptionRef.current.value.length === 0) {
+      alert("Description is required");
+      return false;
+    }
+    if (dateRef.current.value.length === 0) {
+      alert("Date is required");
+      return false;
+    }
+    return true;
+  }
   return (
     <div className="bg-gray-100 p-6 flex-grow rounded-lg shadow-md">
       <div className="p-3">

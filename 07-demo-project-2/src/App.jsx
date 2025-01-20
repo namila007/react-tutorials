@@ -2,10 +2,23 @@ import { ProjectSideView } from "./component/ProjectSideView.jsx";
 import { useState } from "react";
 import { ProjectDataView } from "./component/ProjectDataView.jsx";
 import { CreateProject } from "./component/CreateProject.jsx";
+import TaskList from "./component/TaskList.jsx";
 
 const startProjects = [
-  { id: 0, name: "Project 0", description: "description", date: Date.now() },
-  { id: 1, name: "Project 1", description: "description2", date: Date.now() },
+  {
+    id: 0,
+    name: "Project 0",
+    description: "description",
+    date: Date.now(),
+    tasks: ["aaa", "aaaaa"],
+  },
+  {
+    id: 1,
+    name: "Project 1",
+    description: "description2",
+    date: Date.now(),
+    tasks: [],
+  },
 ];
 
 function App() {
@@ -25,10 +38,11 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex flex-grow h-screen bg-gray-100">
       {/*{sidebar}*/}
       <ProjectSideView
         items={items}
+        selectedProjectId={selectedProject}
         handleCreatebtn={handleCreateView}
         onProjectClick={onProjectClick}
       />
@@ -40,7 +54,15 @@ function App() {
         ></CreateProject>
       )}
       {/*</section>*/}
-      <ProjectDataView item={items[selectedProject]}>dd</ProjectDataView>
+      {!showCreatProjectView && (
+        <ProjectDataView item={items[selectedProject]}>
+          <TaskList
+            taskList={items[selectedProject].tasks}
+            setTaskList={setItems}
+            projectId={selectedProject}
+          />
+        </ProjectDataView>
+      )}
     </div>
   );
 }
