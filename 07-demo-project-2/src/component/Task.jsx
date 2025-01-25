@@ -1,8 +1,8 @@
 export default function Task({ children, clearTask }) {
   return (
     <>
-      <td className="basis-1/2 pr-4">{children}</td>
-      <td className="basis-1/4">
+      <td className="flex-grow pr-4">{children}</td>
+      <td className="flex-auto ">
         <button
           className="text-stone-700 hover:text-stone-950 ml-4"
           onClick={clearTask}
