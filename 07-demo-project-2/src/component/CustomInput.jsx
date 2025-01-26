@@ -1,21 +1,23 @@
-export function CustomInput({ title, inputType = "text", inputRef }) {
+import React from "react";
+
+const inputF = React.forwardRef(function CustomInput(
+  { title, inputType = "text" },
+  inputRef,
+) {
+  const inputStyle =
+    "w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600";
   return (
-    <div className="m-2">
+    <p className="flex flex-col gap-1 my-4">
       <label className="text-sm font-bold uppercase text-stone-500">
         {title}
       </label>
       {inputType === "text-area" ? (
-        <textarea
-          className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
-          ref={inputRef}
-        />
+        <textarea className={inputStyle} ref={inputRef} />
       ) : (
-        <input
-          type={inputType}
-          className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600"
-          ref={inputRef}
-        />
+        <input type={inputType} className={inputStyle} ref={inputRef} />
       )}
-    </div>
+    </p>
   );
-}
+});
+
+export default inputF;

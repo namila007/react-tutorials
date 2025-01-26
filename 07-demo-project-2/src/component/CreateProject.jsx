@@ -1,10 +1,10 @@
-import { CustomInput } from "./CustomInput.jsx";
+import CustomInput from "./CustomInput.jsx";
 import { useRef } from "react";
 
 export function CreateProject({ setItems, isVisible }) {
-  const titleRef = useRef();
-  const descriptionRef = useRef();
-  const dateRef = useRef();
+  const titleRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const dateRef = useRef(null);
 
   function addProject() {
     if (!validate()) return;
@@ -39,20 +39,24 @@ export function CreateProject({ setItems, isVisible }) {
     }
     return true;
   }
+
   return (
-    <div className="bg-gray-100 p-6 flex-grow rounded-lg shadow-md">
-      <div className="p-3">
-        <button className="m-2" onClick={() => isVisible(false)}>
-          {" "}
-          Cancel
-        </button>
-        <button
-          className="px-5 py-2 text-xs md:text-base rounded-md bg-stone-900 text-stone-100 hover:bg-stone-600 hover:text-stone-200"
-          onClick={addProject}
-        >
-          Save
-        </button>
-      </div>
+    <div className="view-card">
+      <menu className="flex items-center justify-end gap-4 my-4">
+        <li>
+          <button
+            className="text-stone-800 hover:text-gray-500"
+            onClick={() => isVisible(false)}
+          >
+            Cancel
+          </button>
+        </li>
+        <li>
+          <button className="action-buttons" onClick={addProject}>
+            Save
+          </button>
+        </li>
+      </menu>
       <CustomInput title="Title" inputRef={titleRef} />
       <CustomInput
         title="Description"
