@@ -1,8 +1,9 @@
 import { ProjectSideView } from "./component/ProjectSideView.jsx";
 import { useState } from "react";
-import { ProjectDataView } from "./component/ProjectDataView.jsx";
 import { CreateProject } from "./component/CreateProject.jsx";
+import { NoSelectedProject } from "./component/NoSelectedProject.jsx";
 import TaskList from "./component/TaskList.jsx";
+import { ProjectDataView } from "./component/ProjectDataView.jsx";
 
 const startProjects = [
   {
@@ -22,11 +23,11 @@ const startProjects = [
 ];
 
 function App() {
-  const [items, setItems] = useState(startProjects);
-  const [showCreatProjectView, setShowCreatProjectView] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(0);
-  console.log("App", items);
-  console.log(showCreatProjectView);
+  const [projects, setProjects] = useState(startProjects);
+  const [showCreateProjectView, setShowCreateProjectView] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  console.log("App", projects);
+  console.log(showCreateProjectView);
 
   function onProjectClick(id) {
     console.log("Project clicked", id);
@@ -34,36 +35,40 @@ function App() {
   }
 
   function handleCreateView(isVisible) {
-    setShowCreatProjectView(isVisible);
+    setSelectedProject(null);
+    setShowCreateProjectView(isVisible);
   }
 
   return (
-    <div className="flex flex-grow h-screen bg-gray-100">
+    <main className="h-screen flex gap-2">
       {/*{sidebar}*/}
       <ProjectSideView
-        items={items}
+        items={projects}
         selectedProjectId={selectedProject}
         handleCreatebtn={handleCreateView}
         onProjectClick={onProjectClick}
       />
-      {/*<ProjectDataView item={items[1]}>dd</ProjectDataView>*/}
-      {showCreatProjectView && (
+      {/*<ProjectDataView item={projects[1]}>dd</ProjectDataView>*/}
+      {showCreateProjectView && (
         <CreateProject
-          setItems={setItems}
+          setItems={setProjects}
           isVisible={handleCreateView}
         ></CreateProject>
       )}
-      {/*</section>*/}
-      {!showCreatProjectView && (
-        <ProjectDataView item={items[selectedProject]}>
+      {/*if nothing selected */}
+      {!showCreateProjectView && selectedProject === null && (
+        <NoSelectedProject action={() => handleCreateView(true)} />
+      )}
+      {!showCreateProjectView && selectedProject !== null && (
+        <ProjectDataView item={projects[selectedProject]}>
           <TaskList
-            taskList={items[selectedProject].tasks}
-            setTaskList={setItems}
+            taskList={projects[selectedProject]?.tasks}
+            setTaskList={setProjects}
             projectId={selectedProject}
           />
         </ProjectDataView>
       )}
-    </div>
+    </main>
   );
 }
 
