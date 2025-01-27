@@ -11,7 +11,7 @@ export default function TaskList({ taskList, setTaskList, projectId }) {
     if (inputValue.trim() === "") return;
     setTaskList((prevState) => {
       return prevState.map((project, index) => {
-        if (index === projectId) {
+        if (project.id === projectId) {
           return {
             ...project,
             tasks: [...project.tasks, inputValue],
@@ -27,7 +27,7 @@ export default function TaskList({ taskList, setTaskList, projectId }) {
     console.log("Clear task", id);
     setTaskList((prevState) => {
       return prevState.map((project, index) => {
-        if (index === projectId) {
+        if (project.id === projectId) {
           return {
             ...project,
             tasks: project.tasks.filter((task, taskIndex) => taskIndex !== id),
@@ -56,15 +56,16 @@ export default function TaskList({ taskList, setTaskList, projectId }) {
 
       <table className="flex flex-grow">
         <tbody>
-          {taskList.map((task, index) => (
-            <tr
-              key={index}
-              className="flex flex-row p-5 bg-stone-400 hover:bg-stone-200"
-            >
-              {console.log("Task", task, "index", index)}
-              <Task clearTask={() => deleteTask(index)}>{task}</Task>
-            </tr>
-          ))}
+          {taskList &&
+            taskList.map((task, index) => (
+              <tr
+                key={index}
+                className="flex flex-row p-5 bg-stone-400 hover:bg-stone-200"
+              >
+                {console.log("Task", task, "index", index)}
+                <Task clearTask={() => deleteTask(index)}>{task}</Task>
+              </tr>
+            ))}
         </tbody>
       </table>
     </>

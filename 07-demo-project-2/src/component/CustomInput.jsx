@@ -2,7 +2,7 @@ import React from "react";
 
 const inputF = React.forwardRef(function CustomInput(
   { title, inputType = "text" },
-  inputRef,
+  ref,
 ) {
   const inputStyle =
     "w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-600 focus:outline-none focus:border-stone-600";
@@ -12,9 +12,9 @@ const inputF = React.forwardRef(function CustomInput(
         {title}
       </label>
       {inputType === "text-area" ? (
-        <textarea className={inputStyle} ref={inputRef} />
+        <textarea className={inputStyle} ref={ref} />
       ) : (
-        <input type={inputType} className={inputStyle} ref={inputRef} />
+        <input type={inputType} className={inputStyle} ref={ref} />
       )}
     </p>
   );

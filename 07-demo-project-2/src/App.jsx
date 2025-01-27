@@ -7,14 +7,14 @@ import { ProjectDataView } from "./component/ProjectDataView.jsx";
 
 const startProjects = [
   {
-    id: 0,
+    id: 2,
     name: "Project 0",
     description: "description",
     date: Date.now(),
     tasks: ["aaa", "aaaaa"],
   },
   {
-    id: 1,
+    id: 3,
     name: "Project 1",
     description: "description2",
     date: Date.now(),
@@ -28,7 +28,10 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   console.log("App", projects);
   console.log(showCreateProjectView);
-
+  const projectData = selectedProject
+    ? projects.find((item) => item.id === selectedProject)
+    : null;
+  console.log("projectData", projectData);
   function onProjectClick(id) {
     console.log("Project clicked", id);
     setSelectedProject(id);
@@ -37,6 +40,14 @@ function App() {
   function handleCreateView(isVisible) {
     setSelectedProject(null);
     setShowCreateProjectView(isVisible);
+  }
+
+  function deleteProject() {
+    console.log("delete project");
+    setProjects((p) => {
+      return p.filter((item, index) => item.id !== selectedProject);
+    });
+    setSelectedProject(null);
   }
 
   return (
@@ -60,9 +71,9 @@ function App() {
         <NoSelectedProject action={() => handleCreateView(true)} />
       )}
       {!showCreateProjectView && selectedProject !== null && (
-        <ProjectDataView item={projects[selectedProject]}>
+        <ProjectDataView item={projectData} handleDelete={deleteProject}>
           <TaskList
-            taskList={projects[selectedProject]?.tasks}
+            taskList={projectData?.tasks}
             setTaskList={setProjects}
             projectId={selectedProject}
           />
