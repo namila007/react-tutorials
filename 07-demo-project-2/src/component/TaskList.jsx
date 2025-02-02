@@ -40,34 +40,40 @@ export default function TaskList({ taskList, setTaskList, projectId }) {
 
   return (
     <>
-      <h2>Tasks</h2>
+      <hr className="border-t-1 border-stone-500" />
+      <h2 className="font-bold  mt-5 pb-3 text-stone-700 uppercase font-sans">
+        Tasks
+      </h2>
       <form onSubmit={addTask} className="flex gap-4 mb-6">
         <input
-          className="flex-1 p-2 border rounded"
+          className="flex-1 p-2 border rounded hover:border-blue-500 focus:outline-none focus:border-blue-600 shadow-md"
           type="text"
           // ref={inputRef}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button type="submit" className="text-blue-600 hover:text-blue-800">
+        <button
+          type="submit"
+          className="font-bold uppercase text-m  p-2 m-2 bg-blue-400 text-white hover:bg-blue-900 shadow-md shadow-blue-300b"
+        >
           Add Task
         </button>
       </form>
-
-      <table className="flex flex-grow">
-        <tbody>
-          {taskList &&
-            taskList.map((task, index) => (
-              <tr
-                key={index}
-                className="flex flex-row p-5 bg-stone-400 hover:bg-stone-200"
-              >
-                {console.log("Task", task, "index", index)}
-                <Task clearTask={() => deleteTask(index)}>{task}</Task>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      {taskList?.length > 0 && (
+        <ul className="max-width-custom p-4 rounded-md  ">
+          {taskList.map((task, index) => (
+            <li
+              key={index}
+              className=" justify-between flex p-3 my-2 whitespace-pre-wrap break-words rounded-2xl
+               bg-amber-100
+               hover:bg-amber-400 shadow-md"
+            >
+              {console.log("Task", task, "index", index)}
+              <Task clearTask={() => deleteTask(index)}>{task}</Task>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

@@ -18,12 +18,12 @@ export function ProjectSideView({
 
       <ul className="mt-8">
         {items.map((item) => (
-          <li key={item.id} className="mt-2 hover:bg-stone-100">
+          <li key={item.id} className="mt-2 ">
             <button
-              className={`w-full text-left p-1 rounded-sm text-stone-200 ${
+              className={`w-full text-left p-1 rounded-r-full  ${
                 selectedProjectId === item.id
-                  ? "bg-stone-800"
-                  : "hover:bg-stone-800"
+                  ? "bg-stone-700 text-stone-200"
+                  : "hover:bg-stone-800 text-stone-500"
               }`}
               onClick={() => onProjectClick(item.id)}
             >

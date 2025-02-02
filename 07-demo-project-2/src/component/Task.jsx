@@ -1,15 +1,15 @@
 export default function Task({ children, clearTask }) {
   return (
     <>
-      <td className="flex-grow pr-4">{children}</td>
-      <td className="flex-auto ">
+      <span className="text-stone-800 font-sans font-semibold">{children}</span>
+      <span className="">
         <button
-          className="text-stone-700 hover:text-stone-950 ml-4"
+          className="text-stone-500 font-bold text-sm border-stone-700 px-2 py-2 uppercase hover:text-red-500"
           onClick={clearTask}
         >
           Clear
         </button>
-      </td>
+      </span>
     </>
   );
 }
