@@ -4,6 +4,7 @@
     "*-project/*"
   ],
   "dependencies": {
+    "context": "file:08-Advanced-State-Management",
     "react-essentials-deep-dive-adv": "file:03-Tic-Tac-Toe",
     "react-essentials-practice": "file:04-Essentials-Practice",
     "react-essentials-start": "file:01-React-Essentials",
