@@ -5,6 +5,7 @@
   ],
   "dependencies": {
     "context": "file:08-Advanced-State-Management",
+    "effects-adv-prj": "file:10-demo-project-Quiz",
     "effects-basics": "file:09-Side-Effects-useEffect",
     "react-essentials-deep-dive-adv": "file:03-Tic-Tac-Toe",
     "react-essentials-practice": "file:04-Essentials-Practice",
